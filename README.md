@@ -1,3 +1,10 @@
-# GameDev-with-Unity-at-FMI
+Game Development Course
 
-[README.md](https://github.com/Ivan-Vankov/GameDevCourse/blob/gh-pages/README.md)
+About Me
+
+Hi! I'm Ivan Ivanov, a student at Sofia University (FMI), faculty number 1MI0700190. I'm taking this Game Development course to learn about making video games.
+
+Course Info
+
+This repo is for my coursework. You can check out the official course README here:
+https://github.com/Ivan-Vankov/GameDevCourse#readme
