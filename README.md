@@ -6,5 +6,8 @@ Hi! I'm Ivan Ivanov, a student at Sofia University (FMI), faculty number 1MI0700
 
 Course Info
 
-This repo is for my coursework. You can check out the official course README here:
+This repo is for my coursework. You can check out the official course README here(2020 edition):
 https://github.com/Ivan-Vankov/GameDevCourse#readme
+
+and here(2021 edition):
+https://github.com/kanitkameh/Game-Dev-Course-2022
