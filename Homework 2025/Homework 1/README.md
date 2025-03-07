@@ -1,3 +1,6 @@
+NOT READY YET!
+
+
 ## Homework-1
 
 You have a sample scene and an asset packgage.
