@@ -4,14 +4,25 @@ using UnityEngine;
 
 public class Respawn : MonoBehaviour
 {
-    [SerializeField] GameObject respawnPoint;
-    [SerializeField] LayerMask respawnLayer;
+    [SerializeField] 
+    private GameObject respawnPoint;
+    [SerializeField] 
+    private LayerMask respawnLayer;
+    [SerializeField]
+    private float timeToRespawn = 1;
 
     void OnTriggerEnter2D(Collider2D col)
     {
         if(((1 << col.gameObject.layer) & respawnLayer.value) != 0)
         {
-            transform.position = respawnPoint.transform.position;
+            gameObject.SetActive(false);
+            Invoke("GoToRespawnPoint", timeToRespawn);
         }
+    }
+
+    private void GoToRespawnPoint()
+    {
+         transform.position = respawnPoint.transform.position;
+        gameObject.SetActive(true);
     }
 }

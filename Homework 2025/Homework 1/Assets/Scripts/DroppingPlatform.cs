@@ -1,16 +1,16 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DroppingPlatform : MonoBehaviour
 {
     [SerializeField]
-    private float disappearTime = 2f;
+    private float fallWait = 0.001f;
     [SerializeField]
-    private float reappearTime = 3f;
+    private float destroyWait = 2f;
+    [SerializeField]
+    private float reappearTime = 2f;
 
     private Rigidbody2D rb;
-    private bool hasStartedFalling = false;
     private Vector2 initialPosition;
 
     void Start()
@@ -19,27 +19,33 @@ public class DroppingPlatform : MonoBehaviour
         initialPosition = transform.position;
     }
 
-    void Update()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!hasStartedFalling && rb.velocity.y < -0.1f)
+        if (collision.gameObject.CompareTag("Player"))
         {
-            hasStartedFalling = true;
-            StartCoroutine(DisappearAndReappearRoutine());
+            StartCoroutine(FallAndRespawn());
         }
     }
 
-    IEnumerator DisappearAndReappearRoutine()
+    private IEnumerator FallAndRespawn()
     {
-        yield return new WaitForSeconds(disappearTime);
-        GameObject clone = Instantiate(gameObject, initialPosition, Quaternion.identity);
-        Destroy(gameObject);
-        yield return new WaitForSeconds(reappearTime);
-        clone.GetComponent<DroppingPlatform>().Restart(initialPosition);
+        yield return new WaitForSeconds(fallWait);
+        rb.bodyType = RigidbodyType2D.Dynamic;
+
+        yield return new WaitForSeconds(destroyWait);
+        gameObject.SetActive(false);
+
+        //yield return new WaitForSeconds(reappearTime); //won't work because of SetActive(false)
+        Invoke("Restart", reappearTime);
     }
 
-    public void Restart(Vector2 position)
+    private void Restart()
     {
-        transform.position = position;
-        hasStartedFalling = false;
+        Debug.Log("Platform respawned!");
+        gameObject.SetActive(true);
+        rb.bodyType = RigidbodyType2D.Kinematic;
+        rb.velocity = Vector2.zero;
+        transform.rotation = Quaternion.identity;
+        transform.position = initialPosition;
     }
 }

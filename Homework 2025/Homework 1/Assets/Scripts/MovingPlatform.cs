@@ -6,7 +6,9 @@ using UnityEngine;
 public class MovingPlatform : MonoBehaviour
 {
     Rigidbody2D rb2d;
-    float horizontal = -1;
+
+    [SerializeField]
+    float direction = -1;
 
     [SerializeField] float speed = 2;
 
@@ -17,7 +19,7 @@ public class MovingPlatform : MonoBehaviour
 
     void FixedUpdate()
     {
-        rb2d.velocity = new Vector2(horizontal * speed, rb2d.velocity.y);
+        rb2d.velocity = new Vector2(direction * speed, rb2d.velocity.y);
 
         foreach (Transform child in transform)
         {
@@ -34,7 +36,7 @@ public class MovingPlatform : MonoBehaviour
                     if (horizontalInput == 0 && verticalInput == 0)
                     {
                         
-                        playerRb.MovePosition(playerRb.position + new Vector2(horizontal * speed * Time.fixedDeltaTime, 0));
+                        playerRb.MovePosition(playerRb.position + new Vector2(direction * speed * Time.fixedDeltaTime, 0));
                     }
                 }
             }
@@ -50,7 +52,7 @@ public class MovingPlatform : MonoBehaviour
         }
         if (col.CompareTag("Boundary"))
         {
-            horizontal *= -1;
+            direction *= -1;
         }
     }
 

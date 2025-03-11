@@ -6,6 +6,9 @@ public class Jump : MonoBehaviour
 {
     bool isJumping = false;
     bool isOnGround = false;
+
+    [SerializeField]
+    private float height = 5;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,7 +28,7 @@ public class Jump : MonoBehaviour
     {
         if(isJumping)
         {
-            GetComponent<Rigidbody2D>().AddForce(new Vector2(0,10), ForceMode2D.Impulse);
+            GetComponent<Rigidbody2D>().AddForce(new Vector2(0,height), ForceMode2D.Impulse);
             isJumping = false;
         }
     }
