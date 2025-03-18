@@ -6,14 +6,13 @@ public class Respawn : MonoBehaviour
 {
     [SerializeField] 
     private GameObject respawnPoint;
-    [SerializeField] 
-    private LayerMask respawnLayer;
+
     [SerializeField]
     private float timeToRespawn = 1;
 
-    void OnTriggerEnter2D(Collider2D col)
+    void OnCollisionEnter2D(Collision2D col)
     {
-        if(((1 << col.gameObject.layer) & respawnLayer.value) != 0)
+        if(col.gameObject.CompareTag("FallZone"))
         {
             gameObject.SetActive(false);
             Invoke("GoToRespawnPoint", timeToRespawn);

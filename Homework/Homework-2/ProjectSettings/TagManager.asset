@@ -6,11 +6,13 @@ TagManager:
   tags:
   - Boundary
   - Key
+  - FallZone
+  - Enemy
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - RespawnZone
+  - Platform
   - Water
   - UI
   - 
