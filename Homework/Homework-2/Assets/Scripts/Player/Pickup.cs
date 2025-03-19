@@ -12,7 +12,6 @@ public class Pickup : Stats<int>
         if (other.CompareTag("Key"))
         {
             setValue(getValue() + 1);
-            Debug.Log("Picked up " + other.name);
             Destroy(other.gameObject);
         }
         

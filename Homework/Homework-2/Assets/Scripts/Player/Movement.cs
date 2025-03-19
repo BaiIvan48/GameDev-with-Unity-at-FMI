@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,10 +12,12 @@ public class Movement : MonoBehaviour
     private float speed = 5f;
 
     private Rigidbody2D rb;
+    Animator animator;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -26,6 +29,7 @@ public class Movement : MonoBehaviour
     void FixedUpdate()
     {
         rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
+        animator.SetFloat("xVelocity", Math.Abs(rb.velocity.x));
     }
 
     void ResolveLookDirection()

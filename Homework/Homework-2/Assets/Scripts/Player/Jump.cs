@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Jump : MonoBehaviour
 {
-    bool isJumping = false;
-    bool isOnGround = false;
+    private bool isJumping = false;
+    private bool isOnGround = false;
 
     [SerializeField]
     private float height = 5;
@@ -16,12 +16,23 @@ public class Jump : MonoBehaviour
     [SerializeField]
     private LayerMask platformLayerMask;
 
+    private Animator animator;
+    private Rigidbody2D rb;
+
+    void Start()
+    {
+        animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
+    }
+
     void Update()
     {
         isOnGround = CheckIfOnGround();
-        if (!isJumping)
+        animator.SetBool("IsJumping", !isOnGround); 
+
+        if (isOnGround && Input.GetButtonDown("Jump"))
         {
-            isJumping = Input.GetButtonDown("Jump") && isOnGround;
+            isJumping = true;
         }
     }
 
@@ -29,7 +40,7 @@ public class Jump : MonoBehaviour
     {
         if (isJumping)
         {
-            GetComponent<Rigidbody2D>().AddForce(new Vector2(0, height), ForceMode2D.Impulse);
+            rb.velocity = new Vector2(rb.velocity.x, height);
             isJumping = false;
         }
     }
@@ -42,7 +53,6 @@ public class Jump : MonoBehaviour
         {
             float playerBottom = transform.position.y - (boxcastSize.y * 0.5f);
             float platformTop = hit.collider.bounds.max.y;
-
             return playerBottom >= platformTop - 0.05f;
         }
         return false;
