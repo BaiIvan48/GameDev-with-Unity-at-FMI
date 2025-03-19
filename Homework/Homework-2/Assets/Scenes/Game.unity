@@ -5180,6 +5180,7 @@ GameObject:
   - component: {fileID: 1727287935}
   - component: {fileID: 1727287937}
   - component: {fileID: 1727287934}
+  - component: {fileID: 1727287938}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -5275,6 +5276,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 582980414}
   smoothSpeed: 5
+--- !u!114 &1727287938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1727287933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbe1c545d35c7454ba1a67fb323f2704, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: {fileID: 582980424}
+  lowHealthMaterial: {fileID: 2100000, guid: 8a0d2c7f41ad75d4995fc07c81c1f3d6, type: 2}
+  healthValue: 5
 --- !u!4 &1735324456 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2021259099479208353, guid: f98cb9889816c9140a20a73c94f82790,
@@ -5414,7 +5430,6 @@ MonoBehaviour:
   - {fileID: 1770540348}
   - {fileID: 647575260}
   - {fileID: 1438708907}
-  - {fileID: 0}
   statOfInterest: {fileID: 582980424}
 --- !u!1001 &1770408441
 PrefabInstance:

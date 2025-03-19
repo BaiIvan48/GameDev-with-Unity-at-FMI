@@ -37,6 +37,15 @@ public class Jump : MonoBehaviour
     private bool CheckIfOnGround()
     {
         RaycastHit2D hit = Physics2D.BoxCast(transform.position, boxcastSize, 0f, Vector2.down, boxcastDistance, platformLayerMask);
-        return hit.collider != null;
+
+        if (hit.collider != null)
+        {
+            float playerBottom = transform.position.y - (boxcastSize.y * 0.5f);
+            float platformTop = hit.collider.bounds.max.y;
+
+            return playerBottom >= platformTop - 0.05f;
+        }
+        return false;
     }
+
 }

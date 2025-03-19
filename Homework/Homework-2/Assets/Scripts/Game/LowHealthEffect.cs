@@ -5,12 +5,12 @@ using UnityEngine;
 public class LowHealthEffect : MonoBehaviour
 {
     [SerializeField]
-    Stats<int> health;
+    private Stats<int> health;
 
     public Material lowHealthMaterial;
 
-    [SerializeField]
     private int healthValue;
+    private int lastHealthValue;
 
     private void OnEnable()
     {
@@ -25,11 +25,13 @@ public class LowHealthEffect : MonoBehaviour
     private void OnHealthUpdate(int healthValue)
     {
         this.healthValue = healthValue;
+        lowHealthMaterial.SetFloat("_Health", healthValue);
     }
 
     private void Start()
     {
         this.healthValue = health.getValue();
+        lowHealthMaterial.SetFloat("_Health", healthValue);
     }
 
     void OnRenderImage(RenderTexture source, RenderTexture destination)

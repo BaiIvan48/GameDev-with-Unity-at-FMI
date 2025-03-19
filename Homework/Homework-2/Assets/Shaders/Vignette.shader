@@ -1,8 +1,9 @@
-Shader "Hidden/Vignette"
+Shader "Hidden/VignetteWithShake"
 {
     Properties
     {
-        _MainTex ("Albedo (RGB)", 2D) = "white" {}
+        _MainTex ("Texture", 2D) = "white" {}
+        _ShakeIntensity ("Shake Intensity", Range(0, 0.05)) = 0.0001
     }
     SubShader
     {
@@ -30,6 +31,10 @@ Shader "Hidden/Vignette"
                 float4 vertex : SV_POSITION;
             };
 
+            sampler2D _MainTex;
+            float _ShakeIntensity;
+            float _Health;
+
             v2f vert (appdata v)
             {
                 v2f o;
@@ -38,16 +43,27 @@ Shader "Hidden/Vignette"
                 return o;
             }
 
-            sampler2D _MainTex;
-
             fixed4 frag(v2f i) : SV_Target
             {
+                float2 shakeOffset = float2(
+                    (sin(_Time.y * 10.0) + sin(_Time.y * 15.0)) * 0.5,
+                    (cos(_Time.y * 12.0) + cos(_Time.y * 18.0)) * 0.5
+                );
+
+                if (_Health <= 1)
+                {
+                    i.uv += shakeOffset * _ShakeIntensity;
+                }
+
                 fixed4 col = tex2D(_MainTex, i.uv);
-                float intensity = abs(_SinTime.w * distance(i.uv.xy,float2(0.5,0.5)));
+
+                float intensity = abs(_SinTime.w * distance(i.uv.xy, float2(0.5, 0.5)));
                 col = float4(col.x + intensity, col.y - intensity, col.z - intensity, col.w);
+                
                 return col;
             }
             ENDCG
-         }
+        }
     }
 }
+
