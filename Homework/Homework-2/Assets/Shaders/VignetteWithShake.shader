@@ -3,7 +3,8 @@ Shader "Hidden/VignetteWithShake"
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
-        _ShakeIntensity ("Shake Intensity", Range(0, 0.05)) = 0.002
+        _ShakeIntensity ("Shake Intensity", Range(0, 0.2)) = 0.05
+
     }
     SubShader
     {
@@ -46,9 +47,10 @@ Shader "Hidden/VignetteWithShake"
             fixed4 frag(v2f i) : SV_Target
             {
                 float2 shakeOffset = float2(
-                    (sin(_Time.y * 30.0) + sin(_Time.y * 39.0)) * 0.5,
-                    (cos(_Time.y * 45.0) + cos(_Time.y * 45.0)) * 0.5
+                    (sin(_Time.y * 30.0) + cos(_Time.y * 50.0)) * _ShakeIntensity * (1.0 / _Health),
+                    (cos(_Time.y * 40.0) + sin(_Time.y * 60.0)) * _ShakeIntensity * (1.0 / _Health)
                 );
+
 
                 if (_Health <= 1)
                 {
