@@ -14,4 +14,15 @@ public class Health : Stats<int>
             setValue(getValue() - 1);
         }
     }
+    private void Update()
+    {
+        if (getValue() <= 0)
+        {
+            Pickup pickup = FindObjectOfType<Pickup>();
+            int keysCollected = (pickup != null) ? pickup.getValue() : 0;
+            gameObject.SetActive(false);
+
+            GameManager.Instance.GameOver(keysCollected);
+        }
+    }
 }

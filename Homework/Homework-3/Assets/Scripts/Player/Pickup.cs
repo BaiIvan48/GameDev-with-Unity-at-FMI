@@ -13,6 +13,11 @@ public class Pickup : Stats<int>
         {
             setValue(getValue() + 1);
             Destroy(other.gameObject);
+
+            if (getValue() == 5)
+            {
+                GameManager.Instance.WinGame();
+            }
         }
         
     }

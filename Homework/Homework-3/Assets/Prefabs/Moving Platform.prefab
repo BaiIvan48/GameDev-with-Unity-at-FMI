@@ -173,8 +173,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8e7a47683b165047aeb2b7809d2ae7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: -1
+  pointL: {fileID: 757921126536562821}
+  pointR: {fileID: 161596626368031929}
   speed: 2
+  startToRight: 1
 --- !u!61 &2605020018779843376
 BoxCollider2D:
   m_ObjectHideFlags: 0

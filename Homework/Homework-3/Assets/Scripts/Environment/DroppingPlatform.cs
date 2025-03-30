@@ -4,7 +4,7 @@ using UnityEngine;
 public class DroppingPlatform : MonoBehaviour
 {
     [SerializeField]
-    private float fallWait = 0.001f;
+    private float fallWait = 0.0001f;
     [SerializeField]
     private float destroyWait = 2f;
     [SerializeField]

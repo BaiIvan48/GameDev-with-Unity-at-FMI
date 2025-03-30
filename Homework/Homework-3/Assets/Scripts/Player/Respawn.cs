@@ -10,10 +10,19 @@ public class Respawn : MonoBehaviour
     [SerializeField]
     private float timeToRespawn = 1;
 
+    private Health playerHealth;
+
+    private void Start()
+    {
+        playerHealth = GetComponent<Health>();
+    }
+
     void OnCollisionEnter2D(Collision2D col)
     {
         if(col.gameObject.CompareTag("FallZone"))
         {
+            int health = playerHealth.getValue();
+            playerHealth.setValue(health - 1);
             gameObject.SetActive(false);
             Invoke("GoToRespawnPoint", timeToRespawn);
         }
@@ -21,7 +30,7 @@ public class Respawn : MonoBehaviour
 
     private void GoToRespawnPoint()
     {
-         transform.position = respawnPoint.transform.position;
+        transform.position = respawnPoint.transform.position;
         gameObject.SetActive(true);
     }
 }

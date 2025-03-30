@@ -2,66 +2,54 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class MovingPlatform : MonoBehaviour
 {
-    Rigidbody2D rb2d;
-
     [SerializeField]
-    float direction = -1;
+    private Transform pointL;
+    [SerializeField]
+    private Transform pointR;
 
-    [SerializeField] float speed = 2;
+    [SerializeField] 
+    private float speed = 2;
+    [SerializeField]
+    private bool startToRight = true;
+
+    private Vector3 nextPosition;
 
     void Start()
     {
-        rb2d = GetComponent<Rigidbody2D>();
+        nextPosition = startToRight ? pointR.position : pointL.position;
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
-        rb2d.velocity = new Vector2(direction * speed, rb2d.velocity.y);
-
-        foreach (Transform child in transform)
-        {
-            if (child.CompareTag("Player"))
-            {
-                Rigidbody2D playerRb = child.GetComponent<Rigidbody2D>();
-                if (playerRb != null)
-                {
-                   
-                    float horizontalInput = Input.GetAxis("Horizontal");  
-                    float verticalInput = Input.GetAxis("Vertical");     
-
-                   
-                    if (horizontalInput == 0 && verticalInput == 0)
-                    {
-                        
-                        playerRb.MovePosition(playerRb.position + new Vector2(direction * speed * Time.fixedDeltaTime, 0));
-                    }
-                }
-            }
-        }
+        transform.position = Vector3.MoveTowards(transform.position, nextPosition, speed * Time.fixedDeltaTime);
     }
-
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.CompareTag("Player"))
-        {
-            col.transform.SetParent(transform); 
-        }
         if (col.CompareTag("Boundary"))
         {
-            direction *= -1;
+            nextPosition = (col.transform == pointL) ? pointR.position : pointL.position;
         }
     }
 
-
-    void OnTriggerExit2D(Collider2D col)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (col.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player"))
         {
-            col.transform.SetParent(null); 
+            collision.gameObject.transform.parent = transform;
         }
     }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            collision.gameObject.transform.parent = null;
+        }
+    }
+
 }
