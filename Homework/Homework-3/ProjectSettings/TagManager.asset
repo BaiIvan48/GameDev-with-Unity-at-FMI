@@ -8,6 +8,7 @@ TagManager:
   - Key
   - FallZone
   - Enemy
+  - Final
   layers:
   - Default
   - TransparentFX
@@ -15,7 +16,7 @@ TagManager:
   - Platform
   - Water
   - UI
-  - 
+  - Players
   - 
   - 
   - 

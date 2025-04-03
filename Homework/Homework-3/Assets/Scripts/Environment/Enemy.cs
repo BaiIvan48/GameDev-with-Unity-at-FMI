@@ -22,7 +22,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] 
     private GameObject radar;
     [SerializeField]
-    private float radarDistance = 5;
+    private float radarDistance = 10;
 
     void Start()
     {

@@ -3,14 +3,18 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    public void PlayGame()
+    public void PlayIntro()
     {
         SceneManager.LoadScene("Game");
     }
-
-    public void OpenOptions()
+    public void PlayMultiplayer()
     {
-        Debug.Log("Options Opened!");
+        SceneManager.LoadScene("MultiplayerGame");
+    }
+
+    public void PlayRandomLevel()
+    {
+        SceneManager.LoadScene("ProGenGame");
     }
 
     public void ExitGame()
