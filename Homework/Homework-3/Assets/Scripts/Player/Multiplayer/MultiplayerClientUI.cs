@@ -43,11 +43,6 @@ public class MultiplayerClientUI : NetworkBehaviour
         winnerScreen.SetActive(false);
     }
 
-    //public void SetPlayerNameColor(Color color)
-    //{
-    //    playerNameField.color = color;
-    //}
-
     public void ExitGame()
     {
         Application.Quit();
