@@ -13,7 +13,7 @@ public class CameraFollow : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        offset = transform.position - player.transform.position;
+        SetPlayer(player);
     }
     void FixedUpdate()
     {
@@ -22,5 +22,11 @@ public class CameraFollow : MonoBehaviour
         Vector3 smoothPosition = Vector3.Lerp(transform.position, desirePosition, smoothSpeed * Time.deltaTime);
 
         transform.position = smoothPosition;
+    }
+
+    public void SetPlayer(GameObject newPlayer)
+    {
+        player = newPlayer;
+        offset = transform.position - player.transform.position;
     }
 }

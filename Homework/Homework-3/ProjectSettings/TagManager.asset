@@ -9,6 +9,7 @@ TagManager:
   - FallZone
   - Enemy
   - Final
+  - PGGameManager
   layers:
   - Default
   - TransparentFX

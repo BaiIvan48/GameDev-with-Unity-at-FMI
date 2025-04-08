@@ -15,6 +15,14 @@ public class Respawn : MonoBehaviour
     private void Start()
     {
         playerHealth = GetComponent<Health>();
+        if (respawnPoint == null)
+        {
+            GameObject foundRespawn = GameObject.FindGameObjectWithTag("Respawn");
+            if (foundRespawn != null)
+            {
+                respawnPoint = foundRespawn;
+            }
+        }
     }
 
     void OnCollisionEnter2D(Collision2D col)
