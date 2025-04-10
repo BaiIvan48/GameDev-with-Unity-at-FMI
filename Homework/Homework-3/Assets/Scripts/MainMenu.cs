@@ -14,8 +14,7 @@ public class MainMenu : MonoBehaviour
 
     public void PlayRandomLevel()
     {
-        LevelDificulty.selectedLevelDificulty = 1;
-        SceneManager.LoadScene("PG Levels");
+        SceneManager.LoadScene("PG Levels Menu");
     }
 
     public void ExitGame()

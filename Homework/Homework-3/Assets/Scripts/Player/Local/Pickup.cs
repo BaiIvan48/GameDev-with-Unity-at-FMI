@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Pickup : Stats<int>
 {
@@ -14,9 +15,15 @@ public class Pickup : Stats<int>
             setValue(getValue() + 1);
             Destroy(other.gameObject);
 
-            if (getValue() == 5)
+            string currentScene = SceneManager.GetActiveScene().name;
+
+            if (currentScene == "Game" && getValue() == 5)
             {
                 GameManager.Instance.WinGame();
+            }
+            else if (currentScene == "PG Levels" && getValue() == LevelDificulty.selectedLevelDificulty)
+            {
+                PGScreenManager.Instance.WinGame();
             }
         }
         

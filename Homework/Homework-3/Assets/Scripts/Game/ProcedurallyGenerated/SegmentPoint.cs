@@ -7,164 +7,117 @@ public class SegmentPoint : MonoBehaviour
     public Direction pointDirection;
     public bool isUsed = false;
 
-    public void Spawn()
-    {
-        SegmentTemplates templates = GameObject.FindGameObjectWithTag("PGGameManager").GetComponent<SegmentTemplates>();
-        SegmentType segmentType = gameObject.GetComponentInParent<Segment>().segmentType; ;
-        int rand;
+    private SegmentTemplates templates;
 
+    private void Awake()
+    {
+        templates = GameObject.FindGameObjectWithTag("PGGameManager").GetComponent<SegmentTemplates>();
+    }
+
+    public void Spawn(bool nextHasKey)
+    {
         if (isUsed)
         {
             gameObject.SetActive(false);
             return;
         }
-        else
+
+        SegmentType segmentType = gameObject.GetComponentInParent<Segment>().segmentType;
+        GameObject[] segmentArray = GetSegmentArrayForSpawn(pointDirection, segmentType, nextHasKey);
+
+        if (segmentArray != null && segmentArray.Length > 0)
         {
-            switch (pointDirection)
-            {
-                case Direction.Center:
-                    break;
-
-                case Direction.Right:
-                    if (segmentType == SegmentType.Spawn)
-                    {
-                        //GameObject last = CreateNextSegment(templates, templates.middleSegments);
-                        rand = Random.Range(0, templates.middleSegments.Length);
-                        GameObject last = Instantiate(templates.middleSegments[rand], transform.position, Quaternion.identity);
-                        RemoveColadingPoints(pointDirection,last);
-                    }
-                    else if (segmentType == SegmentType.Middle)
-                    {
-                        rand = Random.Range(0, templates.rightUpSegments.Length);
-                        GameObject last = Instantiate(templates.rightUpSegments[rand], transform.position, Quaternion.identity);
-                        RemoveColadingPoints(pointDirection, last);
-                    }
-                    else if (segmentType == SegmentType.LeftBegin)
-                    {
-                        rand = Random.Range(0, templates.middleSegments.Length);
-                        GameObject last = Instantiate(templates.middleSegments[rand], transform.position, Quaternion.identity);
-                        RemoveColadingPoints(pointDirection, last);
-                    }
-
-                    gameObject.SetActive(false);
-                    break;
-
-                case Direction.Left:
-                    if (segmentType == SegmentType.Spawn)
-                    {
-                        rand = Random.Range(0, templates.middleSegments.Length);
-                        GameObject last = Instantiate(templates.middleSegments[rand], transform.position, Quaternion.identity);
-                        RemoveColadingPoints(pointDirection, last);
-                    }
-                    else if (segmentType == SegmentType.Middle)
-                    {
-                        rand = Random.Range(0, templates.leftUpSegments.Length);
-                        GameObject last = Instantiate(templates.leftUpSegments[rand], transform.position, Quaternion.identity);
-                        RemoveColadingPoints(pointDirection, last);
-                    }
-                    else if (segmentType == SegmentType.RightBegin)
-                    {
-                        rand = Random.Range(0, templates.middleSegments.Length);
-                        GameObject last = Instantiate(templates.middleSegments[rand], transform.position, Quaternion.identity);
-                        RemoveColadingPoints(pointDirection, last);
-                    }
-                    gameObject.SetActive(false);
-                    break;
-
-                case Direction.Up:
-                    if (segmentType == SegmentType.RightUp)
-                    {
-                        rand = Random.Range(0, templates.rightBeginSegments.Length);
-                        GameObject last = Instantiate(templates.rightBeginSegments[rand], transform.position, Quaternion.identity);
-                        RemoveColadingPoints(pointDirection, last);
-                    }
-                    else if (segmentType == SegmentType.LeftUp)
-                    {
-                        rand = Random.Range(0, templates.leftBeginSegments.Length);
-                        GameObject last = Instantiate(templates.leftBeginSegments[rand], transform.position, Quaternion.identity);
-                        RemoveColadingPoints(pointDirection, last);
-                    }
-                    gameObject.SetActive(false);
-                    break;
-
-                case Direction.Down:
-                    gameObject.SetActive(false);
-                    break;
-
-                default:
-                    Debug.Log("Invalid point direction!");
-                    break;
-            }
-            isUsed = true;
+            int rand = Random.Range(0, segmentArray.Length);
+            GameObject last = Instantiate(segmentArray[rand], transform.position, Quaternion.identity);
+            RemoveColidingPoints(pointDirection, last);
         }
+
+        isUsed = true;
+        gameObject.SetActive(false);
     }
 
-    //private GameObject CreateNextSegment(SegmentTemplates templates,GameObject[] arr)
-    //{
-    //    int rand = Random.Range(0, arr.Length);
-    //    return Instantiate(arr[rand], transform.position, Quaternion.identity);
-    //}
-
-    private void RemoveColadingPoints(Direction direction, GameObject last)
+    private GameObject[] GetSegmentArrayForSpawn(Direction direction, SegmentType type, bool nextHasKey)
     {
-
         switch (direction)
         {
             case Direction.Right:
-                SegmentPoint r = last.transform.Find("SpawnPoints/SegmentLeft").GetComponent<SegmentPoint>();
-                r.isUsed = true;
-                break;
+                if (type == SegmentType.Spawn)
+                    return templates.middleSegments;
+                if (type == SegmentType.Middle || type == SegmentType.MiddleWithKey)
+                    return templates.rightUpSegments;
+                if (type == SegmentType.LeftBegin && nextHasKey)
+                    return templates.middleWithKeySegments;
+                return templates.middleSegments;
 
             case Direction.Left:
-
-                SegmentPoint l = last.transform.Find("SpawnPoints/SegmentRight").GetComponent<SegmentPoint>();
-                l.isUsed = true;
-                break;
+                if (type == SegmentType.Spawn)
+                    return templates.middleSegments;
+                if (type == SegmentType.Middle || type == SegmentType.MiddleWithKey)
+                    return templates.leftUpSegments;
+                if (type == SegmentType.RightBegin && nextHasKey)
+                    return templates.middleWithKeySegments;
+                return templates.middleSegments;
 
             case Direction.Up:
-                SegmentPoint u = last.transform.Find("SpawnPoints/SegmentDown").GetComponent<SegmentPoint>();
-                u.isUsed = true;
-                break;
+                if (type == SegmentType.RightUp)
+                    return templates.rightBeginSegments;
+                if (type == SegmentType.LeftUp)
+                    return templates.leftBeginSegments;
+                return null;
 
             case Direction.Down:
-                break;
-
+            case Direction.Center:
             default:
-                break;
+                return null;
         }
-
-        //if (point != null)
-        //{
-        //    //point.gameObject.SetActive(false);
-        //    point.isUsed = true;
-        //}
     }
 
-    //////////////////////////////////////////////////////////For some reason they don't work and that's why i disable the points manually
-    //private void OnTriggerEnter2D(Collider2D collision)
-    //{
+    private void RemoveColidingPoints(Direction direction, GameObject last)
+    {
+        string opposite = direction switch
+        {
+            Direction.Right => "SegmentLeft",
+            Direction.Left => "SegmentRight",
+            Direction.Up => "SegmentDown",
+            _ => null
+        };
 
-    //    if (collision.CompareTag("SegmentSpawnPoint"))
-    //    {
-    //        SegmentPoint other = collision.GetComponent<SegmentPoint>();
-    //        if (other != null && other.pointDirection == Direction.Center)
-    //        {
-    //            isUsed = true;
-    //            Destroy(gameObject);
-    //        }
-    //    }
-    //}
+        if (opposite != null)
+        {
+            Transform oppositePoint = last.transform.Find($"SpawnPoints/{opposite}");
+            if (oppositePoint != null)
+            {
+                SegmentPoint sp = oppositePoint.GetComponent<SegmentPoint>();
+                if (sp != null) sp.isUsed = true;
+            }
+        }
+    }
 
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    if (collision.gameObject.CompareTag("SegmentSpawnPoint"))
-    //    {
-    //        SegmentPoint other = collision.gameObject.GetComponent<SegmentPoint>();
-    //        if (other != null && other.pointDirection == Direction.Center)
-    //        {
-    //            isUsed = true;
-    //            Destroy(gameObject);
-    //        }
-    //    }
-    //}
+    //// For some reason they don't work and that's why i disable the points manually
+    //// Disabled collision-based logic:
+    // private void OnTriggerEnter2D(Collider2D collision)
+    // {
+    //     if (collision.CompareTag("SegmentSpawnPoint"))
+    //     {
+    //         SegmentPoint other = collision.GetComponent<SegmentPoint>();
+    //         if (other != null && other.pointDirection == Direction.Center)
+    //         {
+    //             isUsed = true;
+    //             Destroy(gameObject);
+    //         }
+    //     }
+    // }
+
+    // private void OnCollisionEnter2D(Collision2D collision)
+    // {
+    //     if (collision.gameObject.CompareTag("SegmentSpawnPoint"))
+    //     {
+    //         SegmentPoint other = collision.gameObject.GetComponent<SegmentPoint>();
+    //         if (other != null && other.pointDirection == Direction.Center)
+    //         {
+    //             isUsed = true;
+    //             Destroy(gameObject);
+    //         }
+    //     }
+    // }
 }

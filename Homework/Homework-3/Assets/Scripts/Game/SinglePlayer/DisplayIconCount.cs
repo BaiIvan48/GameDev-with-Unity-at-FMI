@@ -1,27 +1,72 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DisplayIconCount : MonoBehaviour
 {
-    [SerializeField]
-    private int iconCount;
+    private int iconCount = 5;
 
     [SerializeField]
     private GameObject[] images;
 
     [SerializeField]
+    private GameObject[] placeHolderImages;
+
+    [SerializeField]
     private Stats<int> statOfInterest;
+
+    [SerializeField]
+    private Stat stat;
+
+    private void Awake()
+    {
+        for (int i = 0; i < placeHolderImages.Length; i++)
+        {
+            placeHolderImages[i].SetActive(i < iconCount);
+            images[i].SetActive(i < iconCount);
+        }
+    }
 
     private void OnEnable()
     {
-        statOfInterest.valueUpdateNotify += ActiveIconCount;
+        if (statOfInterest != null)
+        {
+            statOfInterest.valueUpdateNotify += ActiveIconCount;
+            ActiveIconCount(statOfInterest.getValue()); 
+        }
     }
 
     private void OnDisable()
     {
-        statOfInterest.valueUpdateNotify -= ActiveIconCount;
+        if (statOfInterest != null)
+        {
+            statOfInterest.valueUpdateNotify -= ActiveIconCount;
+        }
     }
+
+    public void SetStat(Stats<int> stat)
+    {
+        if (statOfInterest != null)
+            statOfInterest.valueUpdateNotify -= ActiveIconCount;
+
+        statOfInterest = stat;
+
+        if (statOfInterest != null)
+        {
+            statOfInterest.valueUpdateNotify += ActiveIconCount;
+            ActiveIconCount(statOfInterest.getValue());
+        }
+    }
+
+    public Stat GetStatType() => stat;
+    public int GetIconCount() => iconCount;
+
+    public void SetIconCount(int count)
+    {
+        iconCount = count;
+        for (int i = 0; i < placeHolderImages.Length; i++)
+        {
+            placeHolderImages[i].SetActive(i < iconCount);
+        }
+    } 
 
     void ActiveIconCount(int n)
     {
@@ -30,4 +75,5 @@ public class DisplayIconCount : MonoBehaviour
             images[i].SetActive(i < n);
         }
     }
+
 }

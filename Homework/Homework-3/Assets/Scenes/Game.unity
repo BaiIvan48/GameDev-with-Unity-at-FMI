@@ -262,13 +262,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 270074b336b39b740acfb3b97b76baa7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  iconCount: 0
+  iconCount: 5
   images:
   - {fileID: 1544679323}
   - {fileID: 1131912069}
   - {fileID: 536459798}
   - {fileID: 1492768085}
   - {fileID: 244464997}
+  placeHolderImages:
+  - {fileID: 1821636007}
+  - {fileID: 255293066}
+  - {fileID: 140368300}
+  - {fileID: 1264885859}
+  - {fileID: 1055630750}
   statOfInterest: {fileID: 582980423}
 --- !u!4 &48337962 stripped
 Transform:
@@ -7904,13 +7910,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 270074b336b39b740acfb3b97b76baa7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  iconCount: 0
+  iconCount: 5
   images:
   - {fileID: 13474888}
   - {fileID: 330507135}
   - {fileID: 1770540348}
   - {fileID: 647575260}
   - {fileID: 1438708907}
+  placeHolderImages:
+  - {fileID: 2031581104}
+  - {fileID: 1954378057}
+  - {fileID: 1885382691}
+  - {fileID: 588664552}
+  - {fileID: 1348188041}
   statOfInterest: {fileID: 582980424}
 --- !u!1001 &1770408441
 PrefabInstance:

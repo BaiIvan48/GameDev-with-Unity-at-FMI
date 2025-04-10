@@ -9,7 +9,7 @@ public class SegmentTemplates : MonoBehaviour
     public GameObject[] leftUpSegments;
     public GameObject[] rightBeginSegments;
     public GameObject[] leftBeginSegments;
-    public GameObject middleWithKeySegments;
+    public GameObject[] middleWithKeySegments;
 
     public List<GameObject> segmentsInLevel = new List<GameObject>();
 }

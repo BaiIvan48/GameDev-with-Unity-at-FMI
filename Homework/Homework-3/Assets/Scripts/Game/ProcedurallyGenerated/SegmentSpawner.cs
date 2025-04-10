@@ -45,22 +45,33 @@ public class SegmentSpawner : MonoBehaviour
 
         GameObject currentSegment = startSegment;
 
-        //int segmentsToSpawn = (LevelDificulty.selectedLevelDificulty * 15) - 2;
-        int segmentsToSpawn = (5 * 15) - 2;
+        int currenLevel = LevelDificulty.selectedLevelDificulty;
+        int segmentsToSpawn = (currenLevel * 15) - 2;
 
-        while (segmentsToSpawn!=0) ////////////////////////////////////////////////////////////////////////////////////////////// trqbva da dobavim tezi s kluchovete
+        int spawned = 1;
+        bool nextHasKey = false;
+
+        while (segmentsToSpawn>0)
         {
-            Debug.Log("Current    " + currentSegment.ToString()); //////////////////////////////////////////////////////////
+            nextHasKey = (segmentsToSpawn == 1 || ((currenLevel > 1) && ((segmentsToSpawn == ((15 * (currenLevel - 1)) + 1)))));
+
+            if (spawned == 14)
+            {
+                spawned = 0;
+                currenLevel--;
+            }
+            else
+            {
+                spawned++;
+            }
 
             foreach (SegmentPoint point in currentSegment.GetComponentsInChildren<SegmentPoint>())
             {
-                Debug.Log(currentSegment.ToString() + "   with point    "+point.ToString());//////////////////////////////////////////
-                point.Spawn();
+                point.Spawn(nextHasKey);
             }
 
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSeconds(0.1f);
             currentSegment = templates.segmentsInLevel.Last();
-            Debug.Log("next    " + currentSegment.ToString());////////////////////////////////////////////////////
 
             segmentsToSpawn--;
             yield return new WaitForSeconds(0.1f);
