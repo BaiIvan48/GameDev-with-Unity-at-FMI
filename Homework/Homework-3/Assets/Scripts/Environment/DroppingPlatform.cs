@@ -13,10 +13,14 @@ public class DroppingPlatform : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 initialPosition;
 
+    AudioManager audioManager;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         initialPosition = transform.position;
+
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -31,6 +35,8 @@ public class DroppingPlatform : MonoBehaviour
     {
         yield return new WaitForSeconds(fallWait);
         rb.bodyType = RigidbodyType2D.Dynamic;
+
+        audioManager.PlaySFX(audioManager.drop_platform);
 
         yield return new WaitForSeconds(destroyWait);
         gameObject.SetActive(false);

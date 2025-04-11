@@ -389,6 +389,7 @@ MonoBehaviour:
   chargeSpeed: 5
   radar: {fileID: 156380953696269670}
   radarDistance: 10
+  walkLoopSound: {fileID: 8300000, guid: 53443c0a207edc94fbd79fb18657feb0, type: 3}
 --- !u!1 &8971547106910966972
 GameObject:
   m_ObjectHideFlags: 0

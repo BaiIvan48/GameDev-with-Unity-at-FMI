@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class Health : Stats<int>
 {
+    AudioManager audioManager;
     void Awake()
     {
         DisplayIconCount[] displays = FindObjectsOfType<DisplayIconCount>();
@@ -14,6 +15,8 @@ public class Health : Stats<int>
                 break;
             }
         }
+
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -21,6 +24,7 @@ public class Health : Stats<int>
         if (collision.gameObject.CompareTag("Enemy"))
         {
             setValue(getValue() - 1);
+            audioManager.PlaySFX(audioManager.hit);
         }
     }
     private void Update()

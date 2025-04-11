@@ -10,6 +10,8 @@ public class MultiplayerRespawn : NetworkBehaviour
     private NetworkVariable<Vector3> respawnPosition = new NetworkVariable<Vector3>(
             Vector3.zero, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
 
+    AudioManager audioManager;
+
     public override void OnNetworkSpawn()
     {
         if (IsServer)
@@ -32,6 +34,7 @@ public class MultiplayerRespawn : NetworkBehaviour
         {
             transform.position = respawnPosition.Value;
         }
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
 
     private void OnCollisionEnter2D(Collision2D col)
@@ -40,7 +43,14 @@ public class MultiplayerRespawn : NetworkBehaviour
         {
             gameObject.SetActive(false);
             RespawnServerRpc();
+
+            Invoke("PlayRespawnSound", respawnTime / 2);
         }
+    }
+
+    private void PlayRespawnSound()
+    {
+        audioManager.PlaySFX(audioManager.respawn);
     }
 
     [ServerRpc]

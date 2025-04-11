@@ -10,6 +10,8 @@ TagManager:
   - Enemy
   - Final
   - PGGameManager
+  - SegmentSpawnPoint
+  - Audio
   layers:
   - Default
   - TransparentFX

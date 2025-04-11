@@ -10,16 +10,57 @@ public class LowHealthEffect : MonoBehaviour
     public Material lowHealthMaterial;
 
     private int healthValue;
-    private int lastHealthValue;
+    private bool isSubscribed = false;
 
-    private void OnEnable()
+    private void Start()
     {
+        if (health != null)
+        {
+            SubscribeToHealth();
+        }
+        else
+        {
+            StartCoroutine(WaitForPlayerHealth());
+        }
+    }
+
+    private IEnumerator WaitForPlayerHealth()
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            health = player.GetComponent<Stats<int>>();
+            if (health != null)
+            {
+                SubscribeToHealth();
+            }
+            else
+            {
+                Debug.LogWarning("Player found, but no Stats<int> or Health component attached.");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Player not found in scene.");
+        }
+    }
+
+    private void SubscribeToHealth()
+    {
+        healthValue = health.getValue();
+        lowHealthMaterial.SetFloat("_Health", healthValue);
         health.valueUpdateNotify += OnHealthUpdate;
+        isSubscribed = true;
     }
 
     private void OnDisable()
     {
-        health.valueUpdateNotify -= OnHealthUpdate;
+        if (isSubscribed && health != null)
+        {
+            health.valueUpdateNotify -= OnHealthUpdate;
+        }
     }
 
     private void OnHealthUpdate(int healthValue)
@@ -28,11 +69,6 @@ public class LowHealthEffect : MonoBehaviour
         lowHealthMaterial.SetFloat("_Health", healthValue);
     }
 
-    private void Start()
-    {
-        this.healthValue = health.getValue();
-        lowHealthMaterial.SetFloat("_Health", healthValue);
-    }
 
     void OnRenderImage(RenderTexture source, RenderTexture destination)
     {

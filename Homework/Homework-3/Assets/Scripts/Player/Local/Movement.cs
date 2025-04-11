@@ -17,10 +17,13 @@ public class Movement : MonoBehaviour
 
     private Vector2 movementInput;
 
+    AudioManager audioManager;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
 
     private void OnEnable()

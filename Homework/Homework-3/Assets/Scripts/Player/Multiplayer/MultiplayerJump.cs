@@ -23,10 +23,13 @@ public class MultiplayerJump : NetworkBehaviour
     private Animator animator;
     private bool isOnGround;
 
+    AudioManager audioManager;
+
     public override void OnNetworkSpawn()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
 
     private void OnEnable()
@@ -51,6 +54,7 @@ public class MultiplayerJump : NetworkBehaviour
     {
         if (IsOwner && isOnGround)
         {
+            audioManager.PlaySFX(audioManager.jump);
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
     }
@@ -58,6 +62,17 @@ public class MultiplayerJump : NetworkBehaviour
     private bool CheckIfOnGround()
     {
         RaycastHit2D hit = Physics2D.BoxCast(transform.position, boxcastSize, 0f, Vector2.down, boxcastDistance, platformLayerMask);
-        return hit.collider != null;
+        if (hit.collider != null)
+        {
+            float playerBottomY = transform.position.y - (boxcastSize.y / 2f);
+            float platformTopY = hit.collider.bounds.max.y;
+
+
+            if (playerBottomY > platformTopY - 0.05f)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
