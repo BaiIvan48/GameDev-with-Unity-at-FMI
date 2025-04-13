@@ -23,9 +23,13 @@ public class Health : Stats<int>
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
+            PowerUp powerUp = GetComponent<PowerUp>();
+            if (powerUp != null && powerUp.IsPoweredUp) return;
+
             setValue(getValue() - 1);
             audioManager.PlaySFX(audioManager.hit);
         }
+
     }
     private void Update()
     {

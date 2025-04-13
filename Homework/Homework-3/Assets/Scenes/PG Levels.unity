@@ -5209,8 +5209,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GameOverScreen, Assembly-CSharp
+      - m_Target: {fileID: 157704612}
+        m_TargetAssemblyTypeName: PGGameOver, Scripts
         m_MethodName: MainMenuButton
         m_Mode: 1
         m_Arguments:
@@ -8651,6 +8651,7 @@ MonoBehaviour:
   lose: {fileID: 8300000, guid: 60eed2ac8e0bfd446b8224accf71be4b, type: 3}
   drop_platform: {fileID: 8300000, guid: 8f302473561d47341bac89520dd70f52, type: 3}
   trampoline: {fileID: 8300000, guid: 4db16b7c49524ae489c0351dbf20a946, type: 3}
+  lightning_pickup: {fileID: 8300000, guid: b0a4d4f4a1f51b9478dd24635b23b0d1, type: 3}
 --- !u!4 &1946199927
 Transform:
   m_ObjectHideFlags: 0

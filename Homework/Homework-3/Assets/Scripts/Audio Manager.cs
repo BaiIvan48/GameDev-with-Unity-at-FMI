@@ -19,6 +19,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip lose;
     public AudioClip drop_platform;
     public AudioClip trampoline;
+    public AudioClip lightning_pickup;
 
 
     private void Start()
@@ -45,5 +46,10 @@ public class AudioManager : MonoBehaviour
         {
             musicSource.Play();
         }
+    }
+
+    public void SetMusicPitch(float pitch)
+    {
+        musicSource.pitch = pitch;
     }
 }

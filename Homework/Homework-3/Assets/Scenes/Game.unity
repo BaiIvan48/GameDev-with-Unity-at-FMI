@@ -4545,6 +4545,7 @@ MonoBehaviour:
   lose: {fileID: 8300000, guid: 60eed2ac8e0bfd446b8224accf71be4b, type: 3}
   drop_platform: {fileID: 8300000, guid: 8f302473561d47341bac89520dd70f52, type: 3}
   trampoline: {fileID: 8300000, guid: 4db16b7c49524ae489c0351dbf20a946, type: 3}
+  lightning_pickup: {fileID: 8300000, guid: b0a4d4f4a1f51b9478dd24635b23b0d1, type: 3}
 --- !u!4 &1091729364
 Transform:
   m_ObjectHideFlags: 0
@@ -9927,6 +9928,74 @@ Transform:
   - {fileID: 244941989}
   m_Father: {fileID: 703259799}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &7725626237642057839
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 748771985089604052, guid: 1d5e57b0cdfd6594582ed462c59cf96b,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 21.37
+      objectReference: {fileID: 0}
+    - target: {fileID: 748771985089604052, guid: 1d5e57b0cdfd6594582ed462c59cf96b,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 32.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 748771985089604052, guid: 1d5e57b0cdfd6594582ed462c59cf96b,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 748771985089604052, guid: 1d5e57b0cdfd6594582ed462c59cf96b,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 748771985089604052, guid: 1d5e57b0cdfd6594582ed462c59cf96b,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 748771985089604052, guid: 1d5e57b0cdfd6594582ed462c59cf96b,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 748771985089604052, guid: 1d5e57b0cdfd6594582ed462c59cf96b,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 748771985089604052, guid: 1d5e57b0cdfd6594582ed462c59cf96b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 748771985089604052, guid: 1d5e57b0cdfd6594582ed462c59cf96b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 748771985089604052, guid: 1d5e57b0cdfd6594582ed462c59cf96b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4342185753431734591, guid: 1d5e57b0cdfd6594582ed462c59cf96b,
+        type: 3}
+      propertyPath: m_Name
+      value: LightningBolt
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1d5e57b0cdfd6594582ed462c59cf96b, type: 3}
 --- !u!1001 &7903978169198412478
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10022,3 +10091,4 @@ SceneRoots:
   - {fileID: 1198403110}
   - {fileID: 1375817004}
   - {fileID: 1091729364}
+  - {fileID: 7725626237642057839}

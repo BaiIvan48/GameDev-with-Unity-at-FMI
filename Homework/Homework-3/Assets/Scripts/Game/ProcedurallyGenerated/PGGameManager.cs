@@ -1,6 +1,4 @@
-using System.Collections;
 using UnityEngine;
-
 
 public class PGGameManager : MonoBehaviour
 {

@@ -370,7 +370,7 @@ MonoBehaviour:
   m_DisconnectTimeoutMS: 30000
   ConnectionData:
     Address: 127.0.0.1
-    Port: 7777
+    Port: 8888
     ServerListenAddress: 127.0.0.1
   DebugSimulator:
     PacketDelayMS: 0
@@ -6305,6 +6305,7 @@ MonoBehaviour:
   lose: {fileID: 8300000, guid: 60eed2ac8e0bfd446b8224accf71be4b, type: 3}
   drop_platform: {fileID: 8300000, guid: 8f302473561d47341bac89520dd70f52, type: 3}
   trampoline: {fileID: 8300000, guid: 4db16b7c49524ae489c0351dbf20a946, type: 3}
+  lightning_pickup: {fileID: 0}
 --- !u!4 &1950533915
 Transform:
   m_ObjectHideFlags: 0

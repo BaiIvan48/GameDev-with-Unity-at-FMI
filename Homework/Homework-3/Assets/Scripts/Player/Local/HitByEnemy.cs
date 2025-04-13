@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class HitByEnemy : MonoBehaviour
@@ -21,9 +20,17 @@ public class HitByEnemy : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Enemy") && !isHurt)
+        if (collision.gameObject.CompareTag("Enemy"))
         {
-            StartCoroutine(HurtPlayer(collision));
+            PowerUp powerUp = GetComponent<PowerUp>();
+            if (powerUp != null && powerUp.IsPoweredUp)
+            {
+                collision.gameObject.SetActive(false);
+            }
+            else if (!isHurt)
+            {
+                StartCoroutine(HurtPlayer(collision));
+            }
         }
     }
 
